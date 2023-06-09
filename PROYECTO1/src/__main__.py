@@ -6,6 +6,7 @@ from vistas.vistaOE import PantallaOE
 from vistas.vistaCA import PantallaCA
 from datos import Datos
 
+
 class App(tk.Tk):
     def __init__(self, valor_obtenido):
         super().__init__()
