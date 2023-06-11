@@ -3,8 +3,10 @@ from PIL import ImageTk, Image
 import os
 
 class PantallaAyudaAFD(tk.Toplevel):
+
     def __init__(self, parent):
         super().__init__()
+        
 
         self.geometry("6400x4800")
         self.title("Que es un Automata Finito Determinista?")

@@ -2,9 +2,11 @@ import tkinter as tk
 import graphviz
 from PIL import ImageTk, Image
 import os
+#from vistas.vistaCrearAFN import PantallaCrearAFN
 
 class AFN(tk.Toplevel):
     def automataFN(self):
+        #PantallaCrearAFN.get()
         f = graphviz.Graph()
 
         # Configuración de la fuente

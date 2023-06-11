@@ -3,8 +3,11 @@ from vistas.vistaCrearAFD import PantallaCrearAFD
 from vistas.vistaAyudaAFD import PantallaAyudaAFD
 
 class PantallaAFD(tk.Toplevel):
+    pantallaParent=None
     def __init__(self, parent):
         super().__init__()
+        self.pantallaParent=parent
+        print(self.pantallaParent.automatasCargados)
 
         self.geometry("640x480")
         self.title("Automata Finito Determinista")
