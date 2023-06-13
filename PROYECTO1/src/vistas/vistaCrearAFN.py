@@ -1,11 +1,13 @@
 import tkinter as tk
 from automatas.AFN import AFN
+from tkinter import messagebox
+import re
 
 class PantallaCrearAFN(tk.Toplevel):
 
     def __init__(self, parent):
         super().__init__()
-        
+        self.automataAFN=[]
         self.entradas = []
         self.geometry("640x480")
         self.title("Crear Automata Finito No Determinista")
@@ -57,17 +59,46 @@ class PantallaCrearAFN(tk.Toplevel):
             texto3 = self.textAlfabeto.get()
             texto4 = self.textEstadoInicial.get()
             texto5 = self.textEstadoAceptacion.get()
-
+            texto2= texto2.split(",")
+            texto3= texto3.split(",")
+            texto5= texto5.split(",")
+            textos = [entrada.get() for entrada in self.entradas]
+            transiciones = [[item for item in texto.replace(';', ',').split(',')] for texto in textos]
+            self.automataAFN=[texto1,texto2,texto3,texto4,texto5,transiciones]
+            #print(self.automata[0])
+            #print(self.automata[1])
+            #print(self.automata[2])
+            '''# Verificar que el estado inicial y los estados de aceptación existan en la lista de estados
+            if texto4 not in texto2:
+                messagebox.showerror("Error", "El estado inicial no existe en la lista de estados")
+                exit()
+            for estado_aceptacion in texto5:
+                if estado_aceptacion not in texto2:
+                    messagebox.showerror("Error", "Uno o más estados de aceptación no existen en la lista de estados")
+                    exit()
+            if ";" not in texto2 or ";" not in texto3 or ";" not in texto5:
+                messagebox.showerror("Error", "Estados o Alfabeto o Estados de Aceptacion no estan separadas por ';'")
+                exit()
+            
+            texto2= texto2.split(";")
+            texto3= texto3.split(";")
+            texto5= texto5.split(";")
             textos = [entrada.get() for entrada in self.entradas]
             print("Las entradas guardadas son:")
-            print(texto1,texto2,texto3,texto4,texto5)
-            print("Las transiciones guardadas son:")
-            for texto in textos:
-                if texto!="":
-                    print(texto)
+            print(texto1,texto2,texto3,texto4,texto5)'''
+
+            '''patron = r"^[a-zA-Z], [a-zA-Z], [a-zA-Z]$"
+            if re.match(patron, textos):
+                print("La transicion cumple con el formato especificado.")
+                print("Las transiciones guardadas son:")
+                for texto in textos:
+                    if texto!="":
+                        print(texto)
+            else:
+                messagebox.showerror("Error", "Alguna transicion no cumple con el formato especificado")'''
                 
-            instancia = AFN()
-            instancia.automataFN()
+            instancia = AFN(self.automataAFN) #debe llevar un parametro que se tenga el automata
+
 
 
 
