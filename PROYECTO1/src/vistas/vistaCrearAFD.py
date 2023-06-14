@@ -78,14 +78,8 @@ class PantallaCrearAFD(tk.Toplevel):
                     exit()
             if ";" not in texto2 or ";" not in texto3 or ";" not in texto5:
                 messagebox.showerror("Error", "Estados o Alfabeto o Estados de Aceptacion no estan separadas por ';'")
-                exit()
+                exit()'''
             
-            texto2= texto2.split(";")
-            texto3= texto3.split(";")
-            texto5= texto5.split(";")
-            textos = [entrada.get() for entrada in self.entradas]
-            print("Las entradas guardadas son:")
-            print(texto1,texto2,texto3,texto4,texto5)'''
 
             '''patron = r"^[a-zA-Z], [a-zA-Z], [a-zA-Z]$"
             if re.match(patron, textos):

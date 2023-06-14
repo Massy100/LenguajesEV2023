@@ -8,8 +8,8 @@ from datos import Datos
 
 
 class App(tk.Tk):
-    automatasCargadosAFD=dict()
-    automatasCargadosAFN=dict()
+    automatasCargadosAFD=[]
+    automatasCargadosAFN=[]
     def __init__(self, valor_obtenido):
         super().__init__()
 

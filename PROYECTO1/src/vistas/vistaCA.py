@@ -80,8 +80,9 @@ class PantallaCA(tk.Toplevel):
                     estadoInicialAutomata=None
                     estadoAceptacionAutomata=None
 
-        self.pantallaParent.automatasCargadosAD=automatasAFD
+        self.pantallaParent.automatasCargadosAFD.extend(automatasAFD)
         arrayAutomatas=automatasAFD
+        print("se cargo afd")
         #[automata][(0-nombre)(1-estados)(2-alfabeto)(3-estado_inicial)(4-estado_de_aceptacion)(5-transiciones)]
         print(arrayAutomatas[0][0])
         print(arrayAutomatas[0][1])
@@ -167,9 +168,11 @@ class PantallaCA(tk.Toplevel):
                     estadoInicialAutomata=None
                     estadoAceptacionAutomata=None
 
-        self.pantallaParent.automatasCargadosAFN=automatasAFN
+        self.pantallaParent.automatasCargadosAFN.extend(automatasAFN) #aqui se cargan los automatas al parent
         arrayAutomatas=automatasAFN
-        #[automata][(0-nombre)(1-estados)(2-alfabeto)(3-estado_inicial)(4-estado_de_aceptacion)(5-transiciones)]
+        print("Se guarda AFN")
+        print(self.pantallaParent.automatasCargadosAFN.__len__())
+        '''#[automata][(0-nombre)(1-estados)(2-alfabeto)(3-estado_inicial)(4-estado_de_aceptacion)(5-transiciones)]
         print(arrayAutomatas[0][0])
         print(arrayAutomatas[0][1])
         #[automata][estados][posicionQueQuieres ej: (0-primeraPosicion)]
@@ -188,7 +191,7 @@ class PantallaCA(tk.Toplevel):
         print(arrayAutomatas[0][5][0][0])
         print(arrayAutomatas[0][5][0][1])
         print(arrayAutomatas[0][5][0][2])
-        #automatas.items()
+        #automatas.items()'''
         """ for nombre, infoAutomata in automatas.items():
             print(nombre)
             print(count)
@@ -197,5 +200,6 @@ class PantallaCA(tk.Toplevel):
             print(infoAutomata.estado_inicial)
             print(infoAutomata.estados_de_aceptacion)
             [print(obj.__dict__) for obj in infoAutomata.transiciones] """
+
 
 

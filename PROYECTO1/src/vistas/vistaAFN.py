@@ -1,19 +1,25 @@
 import tkinter as tk
 from vistas.vistaCrearAFN import PantallaCrearAFN
 from vistas.vistaAyudaAFN import PantallaAyudaAFN
+from vistas.vistaSeleccionarAFN import PantallaSeleccionarAFN
+from automatas.AFN import AFN
+
 
 
 class PantallaAFN(tk.Toplevel):
+    pantallaParent = None
     def __init__(self, parent):
-        super().__init__()
 
+        super().__init__()
+        self.pantallaParent=parent
+        self.automataAFN=parent.automatasCargadosAFN
         self.geometry("640x480")
         self.title("Automata Finito No Determinista")
 
         tk.Button(self, text="Crear AFN", width=100, height=5, command=self.abrir_ventanaCrearAFN).pack(
             expand=True
         )
-        tk.Button(self, text="Evaluar Cadena", width=100, height=5).pack(
+        tk.Button(self, text="Evaluar Cadena", width=100, height=5, command=self.abrir_ventanaSeleccionarAFN).pack(
             expand=True
         )
         tk.Button(self, text="Generar Reporte AFN", width=100, height=5).pack(expand=True)
@@ -31,3 +37,12 @@ class PantallaAFN(tk.Toplevel):
     def cerrar_ventana(self):
         PantallaAFN.destroy(self)
 
+    def abrir_ventanaSeleccionarAFN(self):
+        ventanaSeleccionarAFN = PantallaSeleccionarAFN(self)
+        ventanaSeleccionarAFN.grab_set()
+
+        #instancia = AFN(self.automataAFN)
+        
+        
+        
+        
