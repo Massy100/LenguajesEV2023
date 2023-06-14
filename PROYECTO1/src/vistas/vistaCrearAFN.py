@@ -75,6 +75,8 @@ class PantallaCrearAFN(tk.Toplevel):
                 messagebox.showerror("Error", "El estado inicial no existe en la lista de estados")
                 exit()'''
             '''for estado_aceptacion in texto5:
+                exit()'''
+            '''for estado_aceptacion in texto5:
                 if estado_aceptacion not in texto2:
                     messagebox.showerror("Error", "Uno o más estados de aceptación no existen en la lista de estados")
                     exit()'''
