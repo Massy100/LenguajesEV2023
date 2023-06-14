@@ -2,11 +2,14 @@ import tkinter as tk
 from automatas.AFN import AFN
 from tkinter import messagebox
 import re
+import copy
 
 class PantallaCrearAFN(tk.Toplevel):
-
+    pantallaParent = None
     def __init__(self, parent):
+        
         super().__init__()
+        self.pantallaParent=parent
         self.automataAFN=[]
         self.entradas = []
         self.geometry("640x480")
@@ -65,27 +68,19 @@ class PantallaCrearAFN(tk.Toplevel):
             textos = [entrada.get() for entrada in self.entradas]
             transiciones = [[item for item in texto.replace(';', ',').split(',')] for texto in textos]
             self.automataAFN=[texto1,texto2,texto3,texto4,texto5,transiciones]
-            #print(self.automata[0])
-            #print(self.automata[1])
-            #print(self.automata[2])
-            '''# Verificar que el estado inicial y los estados de aceptación existan en la lista de estados
+            automata_copia = copy.deepcopy(self.automataAFN)
+            self.pantallaParent.pantallaParent.automatasCargadosAFN.append(automata_copia)
+            '''#Verificar que el estado inicial y los estados de aceptación existan en la lista de estados
             if texto4 not in texto2:
                 messagebox.showerror("Error", "El estado inicial no existe en la lista de estados")
-                exit()
-            for estado_aceptacion in texto5:
+                exit()'''
+            '''for estado_aceptacion in texto5:
                 if estado_aceptacion not in texto2:
                     messagebox.showerror("Error", "Uno o más estados de aceptación no existen en la lista de estados")
-                    exit()
-            if ";" not in texto2 or ";" not in texto3 or ";" not in texto5:
-                messagebox.showerror("Error", "Estados o Alfabeto o Estados de Aceptacion no estan separadas por ';'")
-                exit()
-            
-            texto2= texto2.split(";")
-            texto3= texto3.split(";")
-            texto5= texto5.split(";")
-            textos = [entrada.get() for entrada in self.entradas]
-            print("Las entradas guardadas son:")
-            print(texto1,texto2,texto3,texto4,texto5)'''
+                    exit()'''
+            '''if "," not in texto2 or "," not in texto3 or ",":
+                messagebox.showerror("Error", "Estados o Alfabeto no estan separadas por ','")
+                exit()'''
 
             '''patron = r"^[a-zA-Z], [a-zA-Z], [a-zA-Z]$"
             if re.match(patron, textos):
@@ -97,7 +92,7 @@ class PantallaCrearAFN(tk.Toplevel):
             else:
                 messagebox.showerror("Error", "Alguna transicion no cumple con el formato especificado")'''
                 
-            instancia = AFN(self.automataAFN) #debe llevar un parametro que se tenga el automata
+            instancia = AFN(self.automataAFN) #debe llevar un parametro que tenga el automata
 
 
 

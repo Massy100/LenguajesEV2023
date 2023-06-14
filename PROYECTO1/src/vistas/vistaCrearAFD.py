@@ -2,11 +2,13 @@ import tkinter as tk
 from automatas.AFD import AFD
 from tkinter import messagebox
 import re
+import copy
 
 class PantallaCrearAFD(tk.Toplevel):
-
+    pantallaParent = None
     def __init__(self, parent):
         super().__init__()
+        self.pantallaParent=parent
         self.automataAFD=[]
         self.entradas = []
         self.geometry("640x480")
@@ -65,6 +67,8 @@ class PantallaCrearAFD(tk.Toplevel):
             textos = [entrada.get() for entrada in self.entradas]
             transiciones = [[item for item in texto.replace(';', ',').split(',')] for texto in textos]
             self.automataAFD=[texto1,texto2,texto3,texto4,texto5,transiciones]
+            automata_copia = copy.deepcopy(self.automataAFD)
+            self.pantallaParent.pantallaParent.automatasCargadosAFD.append(automata_copia)
             #print(self.automata[0])
             #print(self.automata[1])
             #print(self.automata[2])
@@ -78,14 +82,8 @@ class PantallaCrearAFD(tk.Toplevel):
                     exit()
             if ";" not in texto2 or ";" not in texto3 or ";" not in texto5:
                 messagebox.showerror("Error", "Estados o Alfabeto o Estados de Aceptacion no estan separadas por ';'")
-                exit()
+                exit()'''
             
-            texto2= texto2.split(";")
-            texto3= texto3.split(";")
-            texto5= texto5.split(";")
-            textos = [entrada.get() for entrada in self.entradas]
-            print("Las entradas guardadas son:")
-            print(texto1,texto2,texto3,texto4,texto5)'''
 
             '''patron = r"^[a-zA-Z], [a-zA-Z], [a-zA-Z]$"
             if re.match(patron, textos):
