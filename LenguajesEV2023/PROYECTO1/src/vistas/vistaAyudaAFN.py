@@ -1,0 +1,58 @@
+import tkinter as tk
+from PIL import ImageTk, Image
+import os
+
+
+class PantallaAyudaAFN(tk.Toplevel):
+    def __init__(self, parent):
+        super().__init__()
+
+        self.geometry("6400x4800")
+        self.title("Que es un Automata Finito No Determinista?")
+
+        tk.Label(self, text="Nombre:").grid(row = 0, column = 0)
+        tk.Label(self, text="AFN2").grid(row = 0, column = 1)
+
+        tk.Label(self, text="Estados:").grid(row = 1, column = 0)
+        tk.Label(self, text="A, B, C").grid(row = 1, column = 1)
+
+        tk.Label(self, text="Alfabeto:").grid(row = 2, column = 0)
+        tk.Label(self, text="0, 1").grid(row = 2, column = 1)
+
+        tk.Label(self, text="Estado Inicial:").grid(row = 3, column = 0)
+        tk.Label(self, text="A").grid(row = 3, column = 1)
+
+        tk.Label(self, text="Estados de Aceptacion:").grid(row = 4, column = 0)
+        tk.Label(self, text="A, C").grid(row = 4, column = 1)
+
+        tk.Label(self, text="Transiciones:").grid(row = 5, column = 0)
+        tk.Label(self, text="A,0;A").grid(row = 5, column = 1)
+        tk.Label(self, text="A,0;B").grid(row = 5, column = 2)
+        tk.Label(self, text="A,1;B").grid(row = 6, column = 1)
+        tk.Label(self, text="A,0;C").grid(row = 6, column = 2)
+        tk.Label(self, text="A,1;A").grid(row = 7, column = 1)
+        tk.Label(self, text="A,2;C").grid(row = 7, column = 2)
+        tk.Label(self, text="B,1;B").grid(row = 8, column = 1)
+        tk.Label(self, text="B,1;C").grid(row = 8, column = 2)
+        tk.Label(self, text="B,2;C").grid(row = 9, column = 1)
+        tk.Label(self, text="C,2;C").grid(row = 9, column = 2)
+
+        # Cargar la imagen
+        imagen = Image.open(os.path.join(os.path.dirname(__file__), "../imagenes/ayudaAFN.PNG"))
+
+        # Redimensionar la imagen si es necesario
+        imagen = imagen.resize((600, 300))
+
+        # Convertir la imagen a un objeto PhotoImage
+        self.imagen_tk = ImageTk.PhotoImage(imagen)
+
+        # Crear un widget Label para mostrar la imagen
+        label_imagen = tk.Label(self, image=self.imagen_tk)
+        label_imagen.grid(row = 10, column = 1)
+
+        tk.Button(self, text="Regresar", width=100, height=5, command=self.cerrar_ventana).grid(row = 11, column = 1)
+
+
+    def cerrar_ventana(self):
+        PantallaAyudaAFN.destroy(self)
+
