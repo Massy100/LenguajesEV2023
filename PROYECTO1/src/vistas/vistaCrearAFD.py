@@ -54,6 +54,7 @@ class PantallaCrearAFD(tk.Toplevel):
         
     def guardar_automata(self):
         if self.textNombre.get() == "" or self.textEstados.get() == "" or self.textAlfabeto.get() == "" or self.textEstadoInicial.get() == "" or self.textEstadoAceptacion.get() == "" or self.entradas == []:
+            messagebox.showerror("Error", "Alguna entrada está en blanco. Por favor, complete todos los campos.")
             print("Alguna entrada está en blanco. Por favor, complete todos los campos.")
         else:
             texto1 = self.textNombre.get()

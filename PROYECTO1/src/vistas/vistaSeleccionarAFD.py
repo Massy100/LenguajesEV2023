@@ -7,11 +7,11 @@ class PantallaSeleccionarAFD(tk.Toplevel):
     def __init__(self, parent):
         super().__init__()
         self.pantallaParent=parent
-        self.automataAFN=parent.pantallaParent.automatasCargadosAFD
+        self.automataAFD=parent.pantallaParent.automatasCargadosAFD
         self.geometry("640x480")
         self.title("Pantalla Seleccionar AFD")
 
-        automatas = [automata[0] for automata in self.automataAFN]
+        automatas = [automata[0] for automata in self.automataAFD]
         self.combobox = ttk.Combobox(self, values=automatas)
         self.combobox.pack()
         tk.Button(self, text="Aceptar", width=100, height=5, command=self.abrir_ventanaECAFD).pack(expand=True)
