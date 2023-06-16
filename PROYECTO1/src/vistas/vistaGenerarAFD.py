@@ -8,14 +8,14 @@ from reportlab.lib.pagesizes import A4
 from PIL import ImageTk, Image
 import os
 
-class PantallaGenerarOE(tk.Toplevel):
+class PantallaGenerarAFD(tk.Toplevel):
     pantallaParent = None
     def __init__(self, parent):
         super().__init__()
         self.pantallaParent=parent
         self.automataAFD=parent.pantallaParent.automatasCargadosAFD
         self.geometry("640x480")
-        self.title("Pantalla Generar Reporte OE")
+        self.title("Pantalla Generar Reporte AFD")
 
         tk.Label(self, text="Seleccione un AFD").pack(expand=True)
         automatas = [automata[0] for automata in self.automataAFD]
@@ -35,8 +35,8 @@ class PantallaGenerarOE(tk.Toplevel):
                 automataSeleccionado=automataAFD
                 break
         w, h = A4
-        pdf = canvas.Canvas("ReporteAFDOptimizado.pdf", pagesize=A4)
-        pdf.setTitle("Reporte de AFD Optimizado")
+        pdf = canvas.Canvas("ReporteAFD.pdf", pagesize=A4)
+        pdf.setTitle("Reporte de AFD")
         text = pdf.beginText(50, h-50)
         text.setFont("Times-Roman", 12)
         text.textLine("Nombre:"+automataSeleccionado[0])
@@ -47,13 +47,11 @@ class PantallaGenerarOE(tk.Toplevel):
         text.textLine("Transiciones: "+str(automataSeleccionado[5]))
         text.textLine("Cadena Generada: "+self.generarCadena())
         text.textLine()
-        text.textLine("AFD Original:")
-        text.textLine("AFD Optimizado:")
+        text.textLine("AFD generado con Graphviz")
         pdf.drawText(text)
         pdf.drawInlineImage("output/automataAFD.png", 0,h-400, width=200, height=200, preserveAspectRatio=True)
-        pdf.drawInlineImage("output/automataAFDOptimizado.png", 0,h-800, width=200, height=200, preserveAspectRatio=True)
         pdf.save()
-        webbrowser.open_new_tab('ReporteAFDOptimizado.pdf')
+        webbrowser.open_new_tab('ReporteAFD.pdf')
 
     def generarCadena(self):
         automataSeleccionado=self.combobox.get()

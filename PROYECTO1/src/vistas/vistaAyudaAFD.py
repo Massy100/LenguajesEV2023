@@ -34,6 +34,7 @@ class PantallaAyudaAFD(tk.Toplevel):
         tk.Label(self, text="C,0;C").grid(row = 7, column = 1)
         tk.Label(self, text="B,0;C").grid(row = 7, column = 2)
 
+        
 
         # Cargar la imagen
         imagen = Image.open(os.path.join(os.path.dirname(__file__), "../imagenes/ayudaAFD.PNG"))
@@ -47,8 +48,8 @@ class PantallaAyudaAFD(tk.Toplevel):
         # Crear un widget Label para mostrar la imagen
         label_imagen = tk.Label(self, image=self.imagen_tk)
         label_imagen.grid(row = 8, column = 1)
-
-        tk.Button(self, text="Regresar", width=100, height=5, command=self.cerrar_ventana).grid(row = 9, column = 1)
+        #tk.Label(self, text="Un Autómata Finito No Determinista (AFN) es un modelo teórico utilizado en la teoría de la computación y en la teoría de lenguajes formales. No acepta cadenas vacias.").grid(row = 9, column = 0)
+        tk.Button(self, text="Regresar", width=100, height=5, command=self.cerrar_ventana).grid(row = 10, column = 1)
 
     def cerrar_ventana(self):
         PantallaAyudaAFD.destroy(self)

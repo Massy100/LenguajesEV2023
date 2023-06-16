@@ -3,6 +3,8 @@ from vistas.vistaCrearAFN import PantallaCrearAFN
 from vistas.vistaAyudaAFN import PantallaAyudaAFN
 from vistas.vistaSeleccionarAFN import PantallaSeleccionarAFN
 from automatas.AFN import AFN
+from vistas.vistaGenerarAFN import PantallaGenerarAFN
+
 
 
 
@@ -22,7 +24,7 @@ class PantallaAFN(tk.Toplevel):
         tk.Button(self, text="Evaluar Cadena", width=100, height=5, command=self.abrir_ventanaSeleccionarAFN).pack(
             expand=True
         )
-        tk.Button(self, text="Generar Reporte AFN", width=100, height=5).pack(expand=True)
+        tk.Button(self, text="Generar Reporte AFN", width=100, height=5, command=self.abrir_ventanaGenerarAFN).pack(expand=True)
         tk.Button(self, text="Ayuda", width=100, height=5, command=self.abrir_ventanaAyudaAFN).pack(expand=True)
         tk.Button(self, text="Regresar", width=100, height=5, command=self.cerrar_ventana).pack(expand=True)
 
@@ -41,8 +43,11 @@ class PantallaAFN(tk.Toplevel):
         ventanaSeleccionarAFN = PantallaSeleccionarAFN(self)
         ventanaSeleccionarAFN.grab_set()
 
-        #instancia = AFN(self.automataAFN)
-        
+    def abrir_ventanaGenerarAFN(self):
+        ventanaGenerarAFN = PantallaGenerarAFN(self)
+        ventanaGenerarAFN.grab_set()
+
+
         
         
         

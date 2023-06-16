@@ -8,17 +8,17 @@ from reportlab.lib.pagesizes import A4
 from PIL import ImageTk, Image
 import os
 
-class PantallaGenerarOE(tk.Toplevel):
+class PantallaGenerarAFN(tk.Toplevel):
     pantallaParent = None
     def __init__(self, parent):
         super().__init__()
         self.pantallaParent=parent
-        self.automataAFD=parent.pantallaParent.automatasCargadosAFD
+        self.automataAFN=parent.pantallaParent.automatasCargadosAFN
         self.geometry("640x480")
-        self.title("Pantalla Generar Reporte OE")
+        self.title("Pantalla Generar Reporte AFN")
 
-        tk.Label(self, text="Seleccione un AFD").pack(expand=True)
-        automatas = [automata[0] for automata in self.automataAFD]
+        tk.Label(self, text="Seleccione un AFN").pack(expand=True)
+        automatas = [automata[0] for automata in self.automataAFN]
         self.combobox = ttk.Combobox(self, values=automatas)
         self.combobox.pack()
 
@@ -30,13 +30,13 @@ class PantallaGenerarOE(tk.Toplevel):
 
     def generarPDF(self):
         automataSeleccionado=self.combobox.get()
-        for automataAFD in self.pantallaParent.pantallaParent.automatasCargadosAFD:
-            if automataAFD[0] == automataSeleccionado:
-                automataSeleccionado=automataAFD
+        for automataAFN in self.pantallaParent.pantallaParent.automatasCargadosAFN:
+            if automataAFN[0] == automataSeleccionado:
+                automataSeleccionado=automataAFN
                 break
         w, h = A4
-        pdf = canvas.Canvas("ReporteAFDOptimizado.pdf", pagesize=A4)
-        pdf.setTitle("Reporte de AFD Optimizado")
+        pdf = canvas.Canvas("ReporteAFN.pdf", pagesize=A4)
+        pdf.setTitle("Reporte de AFN")
         text = pdf.beginText(50, h-50)
         text.setFont("Times-Roman", 12)
         text.textLine("Nombre:"+automataSeleccionado[0])
@@ -47,19 +47,17 @@ class PantallaGenerarOE(tk.Toplevel):
         text.textLine("Transiciones: "+str(automataSeleccionado[5]))
         text.textLine("Cadena Generada: "+self.generarCadena())
         text.textLine()
-        text.textLine("AFD Original:")
-        text.textLine("AFD Optimizado:")
+        text.textLine("AFN generado con Graphviz")
         pdf.drawText(text)
-        pdf.drawInlineImage("output/automataAFD.png", 0,h-400, width=200, height=200, preserveAspectRatio=True)
-        pdf.drawInlineImage("output/automataAFDOptimizado.png", 0,h-800, width=200, height=200, preserveAspectRatio=True)
+        pdf.drawInlineImage("output/automataAFN.png", 0,h-400, width=200, height=200, preserveAspectRatio=True)
         pdf.save()
-        webbrowser.open_new_tab('ReporteAFDOptimizado.pdf')
+        webbrowser.open_new_tab('ReporteAFN.pdf')
 
     def generarCadena(self):
         automataSeleccionado=self.combobox.get()
-        for automataAFD in self.pantallaParent.pantallaParent.automatasCargadosAFD:
-            if automataAFD[0] == automataSeleccionado:
-                automataSeleccionado=automataAFD
+        for automataAFN in self.pantallaParent.pantallaParent.automatasCargadosAFN:
+            if automataAFN[0] == automataSeleccionado:
+                automataSeleccionado=automataAFN
                 break
         cadenaGenerada=""
         transicionInicial=None
@@ -70,6 +68,8 @@ class PantallaGenerarOE(tk.Toplevel):
                 transicionInicial = transicion
                 break
         transicionActual = transicionInicial
+        if transicionActual[1] != "ε":
+            cadenaGenerada += transicionActual[1]
         #Si mi transicion inicial ya contiene un estado de aceptacion no se hace nada mas
         if transicionActual[2] not in automataSeleccionado[4]:
             #Se recorren todas las transiciones una y otra vez
@@ -89,6 +89,10 @@ class PantallaGenerarOE(tk.Toplevel):
                             continue
                         #Se mueve a la siguiente transicion y agrega el caracter
                         #con el que la transicion actual se mueve a la cadena generada
+                        #excepto si es epsilon (cadena vacia)
+                        transicionActual = transicion
+                        if transicionActual[1] != "ε":
+                            cadenaGenerada += transicionActual[1]
                         #Si el estado destino de la transicion actual es un estado de aceptacion
                         #se marca la cadena como valida
                         if transicionActual[2] in automataSeleccionado[4]:
@@ -97,4 +101,6 @@ class PantallaGenerarOE(tk.Toplevel):
                 if cadenaValida:
                     break
         return cadenaGenerada
+        
+                
         

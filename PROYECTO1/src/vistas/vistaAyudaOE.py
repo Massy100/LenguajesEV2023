@@ -42,8 +42,8 @@ class PantallaAyudaOE(tk.Toplevel):
         # Crear un widget Label para mostrar la imagen
         label_imagen = tk.Label(self, image=self.imagen_tk)
         label_imagen.grid(row = 7, column = 1)
-
-        tk.Button(self, text="Regresar", width=100, height=5, command=self.cerrar_ventana).grid(row = 8, column = 1)
+        #tk.Label(self, text="Un AFD minimizado es la versión simplificada de lo que fue un AFD con estados redundantes entre sí. Utilizando algoritmos es posible encontrar estados equivalentes para formar un AFD mínimo.").grid(row = 8, column = 0)
+        tk.Button(self, text="Regresar", width=100, height=5, command=self.cerrar_ventana).grid(row = 9, column = 1)
 
     def cerrar_ventana(self):
         PantallaAyudaOE.destroy(self)

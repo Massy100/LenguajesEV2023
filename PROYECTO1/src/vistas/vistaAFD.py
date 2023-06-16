@@ -3,6 +3,7 @@ from vistas.vistaCrearAFD import PantallaCrearAFD
 from vistas.vistaAyudaAFD import PantallaAyudaAFD
 from vistas.vistaSeleccionarAFD import PantallaSeleccionarAFD
 from automatas.AFD import AFD
+from vistas.vistaGenerarAFD import PantallaGenerarAFD
 
 class PantallaAFD(tk.Toplevel):
     pantallaParent=None
@@ -19,7 +20,7 @@ class PantallaAFD(tk.Toplevel):
         tk.Button(self, text="Evaluar Cadena", width=100, height=5, command=self.abrir_ventanaSeleccionarAFD).pack(
             expand=True
         )
-        tk.Button(self, text="Generar Reporte AFD", width=100, height=5).pack(expand=True)
+        tk.Button(self, text="Generar Reporte AFD", width=100, height=5, command=self.abrir_ventanaGenerarAFD).pack(expand=True)
         tk.Button(self, text="Ayuda", width=100, height=5, command=self.abrir_ventanaAyudaAFD).pack(expand=True)
         tk.Button(self, text="Regresar", width=100, height=5, command=self.cerrar_ventana).pack(expand=True)
 
@@ -39,3 +40,7 @@ class PantallaAFD(tk.Toplevel):
     def abrir_ventanaSeleccionarAFD(self):
         ventanaSeleccionarAFD = PantallaSeleccionarAFD(self)
         ventanaSeleccionarAFD.grab_set()
+
+    def abrir_ventanaGenerarAFD(self):
+        ventanaGenerarAFD = PantallaGenerarAFD(self)
+        ventanaGenerarAFD.grab_set()
