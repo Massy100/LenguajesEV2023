@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import filedialog
 from automatas.DataAFD import DataAFD, TransicionesAFD
 from automatas.DataAFN import DataAFN, TransicionesAFN
+from tkinter import messagebox
 
 
 class PantallaCA(tk.Toplevel):
@@ -83,6 +84,7 @@ class PantallaCA(tk.Toplevel):
         self.pantallaParent.automatasCargadosAFD.extend(automatasAFD)
         arrayAutomatas=automatasAFD
         print("se cargo afd")
+        messagebox.showinfo("Mensaje Emergente", "AFD cargado con exito")
         #[automata][(0-nombre)(1-estados)(2-alfabeto)(3-estado_inicial)(4-estado_de_aceptacion)(5-transiciones)]
         print(arrayAutomatas[0][0])
         print(arrayAutomatas[0][1])
@@ -171,6 +173,7 @@ class PantallaCA(tk.Toplevel):
         self.pantallaParent.automatasCargadosAFN.extend(automatasAFN) #aqui se cargan los automatas al parent
         arrayAutomatas=automatasAFN
         print("Se guarda AFN")
+        messagebox.showinfo("Mensaje Emergente", "AFN cargado con exito")
         print(self.pantallaParent.automatasCargadosAFN.__len__())
         '''#[automata][(0-nombre)(1-estados)(2-alfabeto)(3-estado_inicial)(4-estado_de_aceptacion)(5-transiciones)]
         print(arrayAutomatas[0][0])
