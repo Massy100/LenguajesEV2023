@@ -54,6 +54,7 @@ class PantallaSeleccionarAFDOE(tk.Toplevel):
     def optimizar_automata(self,nuevo_nombre, automata):
 
         automata_optimizado = self.reducir_AFD(nuevo_nombre,automata[1],automata[2],automata[3],automata[4],automata[5])
+        self.pantallaParent.pantallaParent.automatasCargadosAFD_optimizados.append(automata_optimizado)
         print(automata_optimizado[0])
         print(automata_optimizado[1])
         print(automata_optimizado[2])

@@ -13,7 +13,7 @@ class PantallaGenerarOE(tk.Toplevel):
     def __init__(self, parent):
         super().__init__()
         self.pantallaParent=parent
-        self.automataAFD=parent.pantallaParent.automatasCargadosAFD
+        self.automataAFD=parent.pantallaParent.automatasCargadosAFD_optimizados
         self.geometry("640x480")
         self.title("Pantalla Generar Reporte OE")
 
@@ -30,7 +30,7 @@ class PantallaGenerarOE(tk.Toplevel):
 
     def generarPDF(self):
         automataSeleccionado=self.combobox.get()
-        for automataAFD in self.pantallaParent.pantallaParent.automatasCargadosAFD:
+        for automataAFD in self.pantallaParent.pantallaParent.automatasCargadosAFD_optimizados:
             if automataAFD[0] == automataSeleccionado:
                 automataSeleccionado=automataAFD
                 break
@@ -45,7 +45,10 @@ class PantallaGenerarOE(tk.Toplevel):
         text.textLine("Estado Inicial: "+str(automataSeleccionado[3]))
         text.textLine("Estado de Aceptacion: "+str(automataSeleccionado[4]))
         text.textLine("Transiciones: "+str(automataSeleccionado[5]))
-        text.textLine("Cadena Generada: "+self.generarCadena())
+        try :
+            text.textLine("Cadena Generada: "+self.generarCadena())
+        except:
+            text.textLine("Cadena Generada: ")
         text.textLine()
         text.textLine("AFD Original:")
         text.textLine("AFD Optimizado:")

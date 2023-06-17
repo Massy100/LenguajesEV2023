@@ -57,6 +57,7 @@ class PantallaCrearAFD(tk.Toplevel):
             messagebox.showerror("Error", "Alguna entrada está en blanco. Por favor, complete todos los campos.")
             print("Alguna entrada está en blanco. Por favor, complete todos los campos.")
         else:
+            hay_error = False
             texto1 = self.textNombre.get()
             texto2 = self.textEstados.get()
             texto3 = self.textAlfabeto.get()
@@ -73,17 +74,19 @@ class PantallaCrearAFD(tk.Toplevel):
             #print(self.automata[0])
             #print(self.automata[1])
             #print(self.automata[2])
-            '''# Verificar que el estado inicial y los estados de aceptación existan en la lista de estados
+            # Verificar que el estado inicial y los estados de aceptación existan en la lista de estados
             if texto4 not in texto2:
+                hay_error = True
                 messagebox.showerror("Error", "El estado inicial no existe en la lista de estados")
-                exit()
             for estado_aceptacion in texto5:
                 if estado_aceptacion not in texto2:
+                    hay_error = True
                     messagebox.showerror("Error", "Uno o más estados de aceptación no existen en la lista de estados")
-                    exit()
-            if ";" not in texto2 or ";" not in texto3 or ";" not in texto5:
-                messagebox.showerror("Error", "Estados o Alfabeto o Estados de Aceptacion no estan separadas por ';'")
-                exit()'''
+            if "," not in texto2 or "," not in texto3 or ",":
+                messagebox.showerror("Error", "Estados o Alfabeto no estan separadas por ','")
+                hay_error = True
+            if "ε" in texto3:
+                messagebox.showerror("Error", "No puede existir una cadena vacia en el alfabeto porque el automata es determinista")
             
 
             '''patron = r"^[a-zA-Z], [a-zA-Z], [a-zA-Z]$"
@@ -95,5 +98,5 @@ class PantallaCrearAFD(tk.Toplevel):
                         print(texto)
             else:
                 messagebox.showerror("Error", "Alguna transicion no cumple con el formato especificado")'''
-                
-            instancia = AFD(self.automataAFD) #debe llevar un parametro que se tenga el automata
+            if not hay_error:  
+                instancia = AFD(self.automataAFD) #debe llevar un parametro que se tenga el automata

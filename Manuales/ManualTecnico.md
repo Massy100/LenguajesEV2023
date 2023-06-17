@@ -27,13 +27,21 @@ Este manual está diseñado para proporcionar a los usuarios y técnicos una gu�
 
 #### Uso y operación:
 [Menu Principal](https://ibb.co/Hh4TFp3)
-[Proyecto](https://ibb.co/zXjPyXR) 
-[Source](https://ibb.co/mXXmbNY) 
-[Manuales](https://ibb.co/Qc09Jjy) 
-[Archivos de Carga](https://ibb.co/svD0ZbK) 
+![](MenuPrincipal.png)  
+[Proyecto](https://ibb.co/zXjPyXR)
+![](Proyecto1.png)   
+[Source](https://ibb.co/mXXmbNY)
+![](Source.png)   
+[Manuales](https://ibb.co/Qc09Jjy)
+![](Manuales.png)   
+[Archivos de Carga](https://ibb.co/svD0ZbK)
+![](ArchivosCarga.png)   
 [Vistas](https://ibb.co/gSqd0mr)
+![](Vistas.png)  
 [Automatas](https://ibb.co/0Q8s5PP)
+![](Automatas.png)  
 [Imagenes](https://ibb.co/vLr9rS3)
+![](Imagenes.png)  
 
 #### Solución de problemas:
 * Identificar el problema:

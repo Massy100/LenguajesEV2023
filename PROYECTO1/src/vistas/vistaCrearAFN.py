@@ -57,6 +57,7 @@ class PantallaCrearAFN(tk.Toplevel):
         if self.textNombre.get() == "" or self.textEstados.get() == "" or self.textAlfabeto.get() == "" or self.textEstadoInicial.get() == "" or self.textEstadoAceptacion.get() == "" or self.entradas == []:
             print("Alguna entrada está en blanco. Por favor, complete todos los campos.")
         else:
+            hay_error = False
             texto1 = self.textNombre.get()
             texto2 = self.textEstados.get()
             texto3 = self.textAlfabeto.get()
@@ -70,21 +71,19 @@ class PantallaCrearAFN(tk.Toplevel):
             self.automataAFN=[texto1,texto2,texto3,texto4,texto5,transiciones]
             automata_copia = copy.deepcopy(self.automataAFN)
             self.pantallaParent.pantallaParent.automatasCargadosAFN.append(automata_copia)
-            '''#Verificar que el estado inicial y los estados de aceptación existan en la lista de estados
+            #Verificar que el estado inicial y los estados de aceptación existan en la lista de estados
             if texto4 not in texto2:
+                hay_error = True
                 messagebox.showerror("Error", "El estado inicial no existe en la lista de estados")
-                exit()'''
-            '''for estado_aceptacion in texto5:
-                exit()'''
-            '''for estado_aceptacion in texto5:
+            for estado_aceptacion in texto5:
                 if estado_aceptacion not in texto2:
+                    hay_error = True
                     messagebox.showerror("Error", "Uno o más estados de aceptación no existen en la lista de estados")
-                    exit()'''
-            '''if "," not in texto2 or "," not in texto3 or ",":
+            if "," not in texto2 or "," not in texto3 or ",":
                 messagebox.showerror("Error", "Estados o Alfabeto no estan separadas por ','")
-                exit()'''
+                hay_error = True
 
-            '''patron = r"^[a-zA-Z], [a-zA-Z], [a-zA-Z]$"
+            '''patron = r"^[a-zA-Z], [a-zA-Z]; [a-zA-Z]$"
             if re.match(patron, textos):
                 print("La transicion cumple con el formato especificado.")
                 print("Las transiciones guardadas son:")
@@ -93,8 +92,8 @@ class PantallaCrearAFN(tk.Toplevel):
                         print(texto)
             else:
                 messagebox.showerror("Error", "Alguna transicion no cumple con el formato especificado")'''
-                
-            instancia = AFN(self.automataAFN) #debe llevar un parametro que tenga el automata
+            if not hay_error:   
+                instancia = AFN(self.automataAFN) #debe llevar un parametro que tenga el automata
 
 
 

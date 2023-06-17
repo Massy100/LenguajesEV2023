@@ -14,6 +14,10 @@ class PantallaECAFD(tk.Toplevel):
         self.cadena.pack(expand=True)
         tk.Button(self, text="Solo Validar", width=100,height=5, command=self.validar).pack(expand=True)
         tk.Button(self, text="Ruta", width=100,height=5, command=self.ruta).pack(expand=True)
+        tk.Button(self, text="Regresar", width=100, height=5, command=self.cerrar_ventana).pack(expand=True)
+
+    def cerrar_ventana(self):
+        self.destroy()
 
     def crear_entry(self):
         texto = list(self.cadena.get())

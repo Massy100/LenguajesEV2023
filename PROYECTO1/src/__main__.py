@@ -10,6 +10,7 @@ from datos import Datos
 class App(tk.Tk):
     automatasCargadosAFD=[]
     automatasCargadosAFN=[]
+    automatasCargadosAFD_optimizados=[]
     def __init__(self, valor_obtenido):
         super().__init__()
 
