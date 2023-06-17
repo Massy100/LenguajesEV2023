@@ -44,14 +44,14 @@ class AFD(tk.Toplevel):
             f.edge(automataAFD[5][0][0], automataAFD[5][0][2], label=automataAFD[5][0][1])
 
 
-        f.render('automataAFD', directory="output", format="png", cleanup=True)
+        f.render(automataAFD[0], directory="output", format="png", cleanup=True)
         
         frame = tk.Frame(self, width=600, height=400)
         frame.pack()
         frame.place(anchor='center', relx=0.5, rely=0.5)
 
         # Cargar la imagen
-        imagen = Image.open(os.path.join(os.path.dirname(__file__), "../../../output/automataAFD.png"))
+        imagen = Image.open(os.path.join(os.path.dirname(__file__), "../../../output/"+automataAFD[0]+".png"))
 
         # Redimensionar la imagen si es necesario
         imagen = imagen.resize((600, 400))

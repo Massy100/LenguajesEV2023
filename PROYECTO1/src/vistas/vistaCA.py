@@ -3,6 +3,9 @@ from tkinter import filedialog
 from automatas.DataAFD import DataAFD, TransicionesAFD
 from automatas.DataAFN import DataAFN, TransicionesAFN
 from tkinter import messagebox
+import graphviz
+from PIL import ImageTk, Image
+import os
 
 
 class PantallaCA(tk.Toplevel):
@@ -81,39 +84,42 @@ class PantallaCA(tk.Toplevel):
                     estadoInicialAutomata=None
                     estadoAceptacionAutomata=None
 
-        self.pantallaParent.automatasCargadosAFD.extend(automatasAFD)
-        arrayAutomatas=automatasAFD
+        
         print("se cargo afd")
         messagebox.showinfo("Mensaje Emergente", "AFD cargado con exito")
-        #[automata][(0-nombre)(1-estados)(2-alfabeto)(3-estado_inicial)(4-estado_de_aceptacion)(5-transiciones)]
-        print(arrayAutomatas[0][0])
-        print(arrayAutomatas[0][1])
-        #[automata][estados][posicionQueQuieres ej: (0-primeraPosicion)]
-        print(arrayAutomatas[0][1][0])
-        print(arrayAutomatas[0][2])
-        #[automata][alfabeto][posicionQueQuieres ej: (0-primeraPosicion)]
-        print(arrayAutomatas[0][2][0])
-        print(arrayAutomatas[0][3])
-        #[automata][alfabeto][posicionQueQuieres ej: (0-primeraPosicion)]
-        print(arrayAutomatas[0][4])
-        print(arrayAutomatas[0][4][0])
-        print(arrayAutomatas[0][5])
-        #[automata][transicion(5)][valor-0(primeraTransicion)]
-        print(arrayAutomatas[0][5][0])
-        #[automata][transicion][posicionTransicion(0-primeraTransicion)][posicionDeTransicion(0-estadoInicial,1-valorTransicion,2-estadoFinal)]
-        print(arrayAutomatas[0][5][0][0])
-        print(arrayAutomatas[0][5][0][1])
-        print(arrayAutomatas[0][5][0][2])
-        #automatas.items()
-        """ for nombre, infoAutomata in automatas.items():
-            print(nombre)
-            print(count)
-            print(infoAutomata.estados)
-            print(infoAutomata.alfabeto)
-            print(infoAutomata.estado_inicial)
-            print(infoAutomata.estados_de_aceptacion)
-            [print(obj.__dict__) for obj in infoAutomata.transiciones] """
+        self.pantallaParent.automatasCargadosAFD.extend(automatasAFD)
+        contador=0
+        for automata in automatasAFD:
+            contador+=1
+            #PantallaCrearAFN.get()
+            f = graphviz.Graph()
 
+            # Configuración de la fuente
+            f.node_attr['fontname'] = 'Helvetica, Arial, sans-serif'
+            f.edge_attr['fontname'] = 'Helvetica, Arial, sans-serif'
+    
+            #Definición de los nodos del círculo (todo tipo de estado
+            f.attr('node', shape = 'circle')
+            for estado in automata[1]:
+                if estado not in automata[4]:
+                    f.node(estado)
+                else: #Definición de los nodos dobles circulares (estados de aceptacion)
+                    f.attr('node', shape ='doublecircle')
+                    f.node(estado)
+                    f.attr('node', shape='circle')
+
+
+            # Definición de las aristas
+            #para cada transicion ejecutar: f.edge(estadoInicial, estadoFinal, label = valorTransicion)
+            #Lista de transiciones en formato (estado1, valor, estado2), (estado1, valor, estado2) ...
+            for transicion in automata[5]:
+                automata[5][0][0], automata[5][0][1], automata[5][0][2] = transicion
+                f.edge(automata[5][0][0], automata[5][0][2], label=automata[5][0][1])
+
+
+            f.render(automata[0], directory="output", format="png", cleanup=True)
+
+        
     def cargarAFN(self):
         automatasAFN = []
         automataActual=None
@@ -172,6 +178,36 @@ class PantallaCA(tk.Toplevel):
 
         self.pantallaParent.automatasCargadosAFN.extend(automatasAFN) #aqui se cargan los automatas al parent
         arrayAutomatas=automatasAFN
+        contador=0
+        for automata in automatasAFN:
+            contador+=1
+            #PantallaCrearAFN.get()
+            f = graphviz.Graph()
+
+            # Configuración de la fuente
+            f.node_attr['fontname'] = 'Helvetica, Arial, sans-serif'
+            f.edge_attr['fontname'] = 'Helvetica, Arial, sans-serif'
+    
+            #Definición de los nodos del círculo (todo tipo de estado
+            f.attr('node', shape = 'circle')
+            for estado in automata[1]:
+                if estado not in automata[4]:
+                    f.node(estado)
+                else: #Definición de los nodos dobles circulares (estados de aceptacion)
+                    f.attr('node', shape ='doublecircle')
+                    f.node(estado)
+                    f.attr('node', shape='circle')
+
+
+            # Definición de las aristas
+            #para cada transicion ejecutar: f.edge(estadoInicial, estadoFinal, label = valorTransicion)
+            #Lista de transiciones en formato (estado1, valor, estado2), (estado1, valor, estado2) ...
+            for transicion in automata[5]:
+                automata[5][0][0], automata[5][0][1], automata[5][0][2] = transicion
+                f.edge(automata[5][0][0], automata[5][0][2], label=automata[5][0][1])
+
+
+            f.render(automata[0], directory="output", format="png", cleanup=True)
         print("Se guarda AFN")
         messagebox.showinfo("Mensaje Emergente", "AFN cargado con exito")
         print(self.pantallaParent.automatasCargadosAFN.__len__())

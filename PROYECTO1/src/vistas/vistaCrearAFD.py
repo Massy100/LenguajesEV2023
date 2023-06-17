@@ -12,7 +12,7 @@ class PantallaCrearAFD(tk.Toplevel):
         self.automataAFD=[]
         self.entradas = []
         self.geometry("640x480")
-        self.title("Crear Automata Finito No Determinista")
+        self.title("Crear Automata Finito Determinista")
 
         tk.Label(self, text="Nombre:").pack(expand=True)
         self.textNombre = tk.Entry(self)

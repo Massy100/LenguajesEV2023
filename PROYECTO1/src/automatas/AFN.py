@@ -44,14 +44,14 @@ class AFN(tk.Toplevel):
             f.edge(automataAFN[5][0][0], automataAFN[5][0][2], label=automataAFN[5][0][1])
 
 
-        f.render('automataAFN', directory="output", format="png", cleanup=True)
+        f.render(automataAFN[0], directory="output", format="png", cleanup=True)
         
         frame = tk.Frame(self, width=600, height=400)
         frame.pack()
         frame.place(anchor='center', relx=0.5, rely=0.5)
 
         # Cargar la imagen
-        imagen = Image.open(os.path.join(os.path.dirname(__file__), "../../../output/automataAFN.png"))
+        imagen = Image.open(os.path.join(os.path.dirname(__file__),  "../../../output/"+automataAFN[0]+".png"))
 
         # Redimensionar la imagen si es necesario
         imagen = imagen.resize((600, 400))

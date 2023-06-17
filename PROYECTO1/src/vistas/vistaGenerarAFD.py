@@ -45,11 +45,11 @@ class PantallaGenerarAFD(tk.Toplevel):
         text.textLine("Estado Inicial: "+str(automataSeleccionado[3]))
         text.textLine("Estado de Aceptacion: "+str(automataSeleccionado[4]))
         text.textLine("Transiciones: "+str(automataSeleccionado[5]))
-        text.textLine("Cadena Generada: "+self.generarCadena())
+        #text.textLine("Cadena Generada: "+self.generarCadena())
         text.textLine()
         text.textLine("AFD generado con Graphviz")
         pdf.drawText(text)
-        pdf.drawInlineImage("output/automataAFD.png", 0,h-400, width=200, height=200, preserveAspectRatio=True)
+        pdf.drawInlineImage("output/"+automataSeleccionado[0]+".png", 0,h-400, width=200, height=200, preserveAspectRatio=True)
         pdf.save()
         webbrowser.open_new_tab('ReporteAFD.pdf')
 
@@ -94,5 +94,6 @@ class PantallaGenerarAFD(tk.Toplevel):
                             break
                 if cadenaValida:
                     break
+        print(cadenaValida)
         return cadenaGenerada
         

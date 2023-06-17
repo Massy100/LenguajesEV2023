@@ -53,7 +53,7 @@ class PantallaSeleccionarAFDOE(tk.Toplevel):
 
     def optimizar_automata(self,nuevo_nombre, automata):
 
-        automata_optimizado = self.reducir_AFD(nuevo_nombre,automata[1],automata[2],automata[3],automata[4],automata[5])
+        automata_optimizado = self.reducir_AFD(nuevo_nombre,automata[1],automata[2],automata[3],automata[4],automata[5], automata[0])
         self.pantallaParent.pantallaParent.automatasCargadosAFD_optimizados.append(automata_optimizado)
         print(automata_optimizado[0])
         print(automata_optimizado[1])
@@ -109,14 +109,14 @@ class PantallaSeleccionarAFDOE(tk.Toplevel):
             f.edge(automata_optimizado[5][0][0], automata_optimizado[5][0][2], label=automata_optimizado[5][0][1])
 
 
-        f.render('automataAFDOptimizado', directory="output", format="png", cleanup=True)
+        f.render(automata_optimizado[0], directory="output", format="png", cleanup=True)
         
         frame = tk.Frame(ventana, width=600, height=400)
         frame.pack()
         frame.place(anchor='center', relx=0.5, rely=0.5)
 
         # Cargar la imagen
-        imagen = Image.open(os.path.join(os.path.dirname(__file__), "../../../output/automataAFDOptimizado.png"))
+        imagen = Image.open(os.path.join(os.path.dirname(__file__), "../../../output/"+automata_optimizado[0]+".png"))
 
         # Redimensionar la imagen si es necesario
         imagen = imagen.resize((600, 400))
@@ -129,7 +129,7 @@ class PantallaSeleccionarAFDOE(tk.Toplevel):
         label.pack()
 
 
-    def reducir_AFD(self,nombre,estados, alfabeto, estado_inicial, estados_finales, transiciones):
+    def reducir_AFD(self,nombre,estados, alfabeto, estado_inicial, estados_finales, transiciones, nombreAntiguoAutomata):
         # Dividimos los estados en grupos de aceptación y no aceptación
         transiciones_dic = {}
         contador = [0]
@@ -141,6 +141,7 @@ class PantallaSeleccionarAFDOE(tk.Toplevel):
         new_grupos_no_aceptacion = []
         estado_usado_aceptacion = []
         estado_usado_no_aceptacion = []
+        #agrupamos por grupo
         for estado in estados:
             if estado in estados_finales:
                 grupo_aceptacion.append(estado)
@@ -168,13 +169,14 @@ class PantallaSeleccionarAFDOE(tk.Toplevel):
         self.nuevaTransicion(new_transicion, transiciones_dic, transiciones, alfabeto)
         estados_finales = new_grupos_aceptacion
         estados = [new_grupos_aceptacion+new_grupos_no_aceptacion]
-        new_automata=[nombre,estados[0], alfabeto, new_estado_inicial[0], estados_finales, new_transicion]
+        new_automata=[nombre,estados[0], alfabeto, new_estado_inicial[0], estados_finales, new_transicion, nombreAntiguoAutomata]
         return new_automata
 
 
     def evaluarPareja(self,grupo_evaluado, grupos, alfabeto, transiciones, new_grupo_aceptacion, new_grupo_no_aceptacion, new_estado_inicial, contador, transiciones_dic, estado_usado_aceptacion, estado_usado_no_aceptacion):
         transiciones_parciales = []
         if (len(grupo_evaluado) > 1):
+            #evalua por parejas las transiciones que tiene, evalua por simbolo y a donde se dirige
             parejas = list(combinations(grupo_evaluado, 2))
             for pareja in parejas:
                 primero = pareja[0]
@@ -184,6 +186,7 @@ class PantallaSeleccionarAFDOE(tk.Toplevel):
                     countLetter = 0
                     transicionPrimero = ""
                     transicionSegundo = ""
+                    #comienza verificando si existe una transicion con el simbolo
                     for transicion in transiciones:
                         if (primero == transicion[0] and letra == transicion[1]):
                             countLetter += 1
@@ -193,9 +196,11 @@ class PantallaSeleccionarAFDOE(tk.Toplevel):
                             transicionSegundo = transicion[2]
                     if (countLetter == 1):
                         countPair += 1
+                    #para poder entrar aqui tiene que verificar que las dos parejas tengan las transiciones
                     elif (countLetter == 2):
                         grupoPrimero = 0
                         grupoSegundo = 0
+                        #aqui busca que a donde se dirigian esten en el mismo grupo
                         for i, buscarGrupo in enumerate(grupos):
                             if transicionPrimero in buscarGrupo:
                                 grupoPrimero = i
@@ -203,24 +208,27 @@ class PantallaSeleccionarAFDOE(tk.Toplevel):
                                 grupoSegundo = i
                         if (grupoPrimero != grupoSegundo):
                             countPair += 1
+                #si no coinciden las transiciones se suma a countPair y si si coinciden se mantiene en cero
                 if (countPair == 0):
                     nuevo_nombre = "q"+str(contador[0])
                     if (primero == new_estado_inicial[0] or segundo == new_estado_inicial[0]):
                         new_estado_inicial[0] = nuevo_nombre
                     if primero and segundo in grupos[0]:
+                        #grupo 0 es aceptacion
                         new_grupo_aceptacion.append(nuevo_nombre)
                         estado_usado_aceptacion.append(primero)
                         estado_usado_aceptacion.append(segundo)
                         transiciones_dic[nuevo_nombre] = [primero, segundo]
                         contador[0] += 1
                     else:
+                        #grupo 1 es no aceptacion
                         new_grupo_no_aceptacion.append(nuevo_nombre)
                         estado_usado_no_aceptacion.append(primero)
                         estado_usado_no_aceptacion.append(segundo)
                         transiciones_dic[nuevo_nombre] = [primero, segundo]
                         contador[0] += 1
 
-        else:  # si solo hay uno significa que no se puede reducir
+        else:  # si solo hay un dato significa que no se puede reducir (porque no existen parejas)
             nuevo_nombre = "q"+str(contador[0])
             if grupo_evaluado[0] in grupos[0]:
                 new_grupo_aceptacion.append(nuevo_nombre)
@@ -235,12 +243,13 @@ class PantallaSeleccionarAFDOE(tk.Toplevel):
             if(grupo_evaluado[0]==new_estado_inicial[0]):
                 new_estado_inicial[0]=nuevo_nombre
 
-
-    def nuevaTransicion(self,new_transicion, transiciones_dic, transiciones, alfabeto):
+    #crear la nueva transicion con los nuevo estados
+    def nuevaTransicion(self,new_transicion, transiciones_dic, transiciones, alfabeto): 
         for origen, estados in transiciones_dic.items():
             for simbolo in alfabeto:
                 destino = None
                 for transicion in transiciones:
+                    #evalua si realmente existe una transicion
                     if transicion[0] == estados[0] and transicion[1] == simbolo:
                         destino = [clave for clave, valor in transiciones_dic.items(
                         ) if transicion[2] in valor][0]

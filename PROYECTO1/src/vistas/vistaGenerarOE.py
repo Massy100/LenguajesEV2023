@@ -53,8 +53,8 @@ class PantallaGenerarOE(tk.Toplevel):
         text.textLine("AFD Original:")
         text.textLine("AFD Optimizado:")
         pdf.drawText(text)
-        pdf.drawInlineImage("output/automataAFD.png", 0,h-400, width=200, height=200, preserveAspectRatio=True)
-        pdf.drawInlineImage("output/automataAFDOptimizado.png", 0,h-800, width=200, height=200, preserveAspectRatio=True)
+        pdf.drawInlineImage("output/"+automataSeleccionado[6]+".png", 0,h-400, width=200, height=200, preserveAspectRatio=True)
+        pdf.drawInlineImage("output/"+automataSeleccionado[0]+".png", 0,h-800, width=200, height=200, preserveAspectRatio=True)
         pdf.save()
         webbrowser.open_new_tab('ReporteAFDOptimizado.pdf')
 
