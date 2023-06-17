@@ -79,9 +79,9 @@ class PantallaCrearAFN(tk.Toplevel):
                 if estado_aceptacion not in texto2:
                     hay_error = True
                     messagebox.showerror("Error", "Uno o más estados de aceptación no existen en la lista de estados")
-            if "," not in texto2 or "," not in texto3 or ",":
+            '''if "," not in texto2 or "," not in texto3 or ",":
                 messagebox.showerror("Error", "Estados o Alfabeto no estan separadas por ','")
-                hay_error = True
+                hay_error = True'''
 
             '''patron = r"^[a-zA-Z], [a-zA-Z]; [a-zA-Z]$"
             if re.match(patron, textos):

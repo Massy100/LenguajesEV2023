@@ -15,7 +15,11 @@ class PantallaSeleccionarAFD(tk.Toplevel):
         self.combobox = ttk.Combobox(self, values=automatas)
         self.combobox.pack()
         tk.Button(self, text="Aceptar", width=100, height=5, command=self.abrir_ventanaECAFD).pack(expand=True)
+        tk.Button(self, text="Regresar", width=100, height=5, command=self.cerrar_ventana).pack(expand=True)
 
+    def cerrar_ventana(self):
+        self.destroy()
+        
     def abrir_ventanaECAFD(self):
         automataSeleccionado=self.combobox.get()
         for automataAFD in self.pantallaParent.pantallaParent.automatasCargadosAFD:

@@ -232,6 +232,8 @@ class PantallaSeleccionarAFDOE(tk.Toplevel):
                 transiciones_dic[nuevo_nombre] = [grupo_evaluado[0]]
                 estado_usado_no_aceptacion.append(grupo_evaluado[0])
                 contador[0] += 1
+            if(grupo_evaluado[0]==new_estado_inicial[0]):
+                new_estado_inicial[0]=nuevo_nombre
 
 
     def nuevaTransicion(self,new_transicion, transiciones_dic, transiciones, alfabeto):

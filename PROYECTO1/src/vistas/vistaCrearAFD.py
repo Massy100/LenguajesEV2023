@@ -82,9 +82,9 @@ class PantallaCrearAFD(tk.Toplevel):
                 if estado_aceptacion not in texto2:
                     hay_error = True
                     messagebox.showerror("Error", "Uno o más estados de aceptación no existen en la lista de estados")
-            if "," not in texto2 or "," not in texto3 or ",":
+            '''if "," not in texto2 or "," not in texto3 or ",":
                 messagebox.showerror("Error", "Estados o Alfabeto no estan separadas por ','")
-                hay_error = True
+                hay_error = True'''
             if "ε" in texto3:
                 messagebox.showerror("Error", "No puede existir una cadena vacia en el alfabeto porque el automata es determinista")
             
